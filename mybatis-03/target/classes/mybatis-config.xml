@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--引入外部配置文件-->
+    <properties resource="db.properties"></properties>
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+        <!--标准的日志-->
+        <!--<setting name="logImpl" value="STDOUT_LOGGING"/>-->
+    </settings>
+    <typeAliases>
+        <typeAlias type="com.soul.pojo.User"  alias="User"/>
+        <package name="com.soul.pojo"/>
+    </typeAliases>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>   <!--默认JDBC, type = JDBC | MANAGED-->
+            <dataSource type="POOLED">  <!--数据库连接池 type= UNPOOLED| POOLED -->
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+        <!--第二个环境，想切就换environments的default-->
+        <environment id="test">
+            <transactionManager type=""></transactionManager>
+            <dataSource type=""></dataSource>
+        </environment>
+    </environments>
+
+    <!--每一个Mapper.xml都需要在Mybatis核心配置文件中注册！-->
+    <mappers>
+        <mapper resource="com/soul/dao/UserMapper.xml"/>
+    </mappers>
+</configuration>
